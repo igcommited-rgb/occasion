@@ -49,7 +49,8 @@
             max-width: 60rem;
             margin: auto;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            min-height: 25rem; /* Ensure a consistent height to prevent layout shifts */
+            max-height: 80vh; /* Allow for vertical scrolling within the message container */
+            overflow-y: auto;
             display: none;
             flex-direction: column;
             justify-content: center;
