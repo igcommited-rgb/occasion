@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, bbu!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0d1117;
+            overflow: hidden;
+            color: white;
+        }
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        .content-container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 2rem;
+        }
+        .surprise-text {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            max-width: 60rem;
+            margin: auto;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            min-height: 25rem; /* Ensure a consistent height to prevent layout shifts */
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .button-group {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            display: flex;
+            gap: 1rem;
+        }
+        .button-group button {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+    <!-- Three.js Canvas for Hearts -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <div id="intro" class="text-center transition-opacity duration-1000">
+            <h1 class="font-['Pacifico'] text-4xl sm:text-6xl text-pink-500 animate-pulse drop-shadow-lg mb-4">
+                A Little Gift for bbu
+            </h1>
+            <p class="text-lg sm:text-2xl font-light text-gray-300 mb-8">
+                Click below to start your birthday surprise!
+            </p>
+            <button id="startButton" class="bg-pink-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                Start
+            </button>
+        </div>
+
+        <div id="surprise1" class="surprise-text">
+            <h2 class="font-['Pacifico'] text-4xl text-fuchsia-400 mb-4">The First Spark</h2>
+            <p class="text-lg leading-relaxed">
+                I can still remember the day we first met. March 29, 2023. It wasn't just another day; it was the day the world shifted on its axis for me. I saw you, and something inside me just clicked. It was as if every song I'd ever loved, every story I'd ever read, was suddenly about you. You walked into my life so quietly, yet your presence created the most beautiful, wonderful noise. That day wasn't the start of our relationship, but it was the start of my favorite journey—the journey of knowing you. I never knew that a single conversation could hold so much promise, but with you, every word felt like a step toward a future I didn't even know I was missing. That memory is one I will cherish forever.
+            </p>
+        </div>
+
+        <div id="surprise2" class="surprise-text">
+            <h2 class="font-['Pacifico'] text-4xl text-fuchsia-400 mb-4">Our Beautiful Journey</h2>
+            <p class="text-lg leading-relaxed">
+                The months that followed were a beautiful blur of getting to know the real you. I learned about your dreams, your fears, your quirks, and your boundless kindness. I fell in love with your smile, the way your eyes light up when you're passionate about something, and the sound of your laughter that is music to my ears. You are a masterpiece of a human being, and every conversation we had, every late-night text, every shared cup of coffee felt like I was discovering a new part of my soul. You are the kind of person who makes the world a better place just by being in it, and I couldn't get enough of the light you brought into my life.
+            </p>
+        </div>
+
+        <div id="surprise3" class="surprise-text">
+            <h2 class="font-['Pacifico'] text-4xl text-fuchsia-400 mb-4">The Official Start</h2>
+            <p class="text-lg leading-relaxed">
+                Then came the day I finally made my move. March 6, 2025. I was so nervous, my heart was pounding like a drum, but I knew I had to take that chance. You were my everything, and I couldn’t imagine a future without you by my side. When you said yes, it was like the entire universe held its breath and then erupted in a burst of joy. It was the most incredible moment of my life, the moment our story truly began. That day marked the start of our official journey together, and it's a day I will re-live in my mind for the rest of my life.
+            </p>
+        </div>
+        
+        <div id="surprise4" class="surprise-text">
+            <h2 class="font-['Pacifico'] text-4xl text-fuchsia-400 mb-4">My Entire Life</h2>
+            <p class="text-lg leading-relaxed">
+                Since that day, every moment with you has been an absolute blessing. We've created a world of our own, filled with inside jokes, comforting silence, and a love that feels both exhilarating and perfectly peaceful. You are my home, my safe place, and the one person who understands me completely. I can be my truest self with you, without a single fear or doubt. The way we support each other, the way we celebrate each other's victories, and the way we lift each other up during the tough times—it's everything I've ever wanted in a partner.
+            </p>
+        </div>
+        
+        <div id="surprise5" class="surprise-text">
+            <h2 class="font-['Pacifico'] text-4xl text-fuchsia-400 mb-4">The Future with You</h2>
+            <p class="text-lg leading-relaxed">
+                I look at you and I see not only the most beautiful person in the world but also the promise of a future filled with endless adventures. I dream of all the places we'll go, all the memories we'll make, and all the challenges we'll overcome together. My life before you was good, but with you, it's a vibrant tapestry woven with the threads of your laughter, your gentle spirit, and the comfort of your presence. You have filled my life with a joy I never thought was possible.
+            </p>
+        </div>
+        
+        <div id="surprise6" class="surprise-text">
+            <h2 class="font-['Pacifico'] text-4xl text-fuchsia-400 mb-4">My bbu</h2>
+            <p class="text-lg leading-relaxed">
+                You are my best friend, my confidante, my partner in crime, and the love of my life. You are the protagonist in my story, the beautiful plot twist that changed everything for the better. I am endlessly grateful for the way you see the world, and for the way you've helped me see it too. Every day I spend with you is my new favorite day, and I can't wait to see what the future holds for us.
+            </p>
+        </div>
+
+        <div id="finalMessage" class="surprise-text">
+            <h1 class="font-['Pacifico'] text-5xl sm:text-7xl text-pink-500 animate-pulse drop-shadow-lg mb-8">
+                Happy Birthday, bbu!
+            </h1>
+            <p class="text-lg sm:text-xl font-light">
+                So, on this special day, I want to wish you the happiest of birthdays, my bbu. You deserve all the love, happiness, and joy in the world, and I promise to spend every day of my life doing everything I can to give that to you. Thank you for being you, for loving me, and for being my entire life. Happy birthday, my love.
+            </p>
+        </div>
+        
+        <div id="anushkaMessage" class="surprise-text">
+            <h1 class="font-['Pacifico'] text-5xl sm:text-7xl text-pink-500 drop-shadow-lg mb-8">
+                A Message from My bbu
+            </h1>
+            <div class="text-lg sm:text-xl font-light leading-relaxed text-left">
+                <p class="mb-6">
+                    Sabse pehle toh ek tight wala hug 🫂 aur ek sweet si wish Happy Birthday to the most precious person in my life 😚💋❤😭😭! Tum jaise ho na waise hi perfect ho mere liye. Kabhi kabhi lagta hai ki tum mujhe milne ke liye hi bane the aur main tumse milne ke liye. Tumhari har smile har baat har mood swing sab kuch mujhe itna special feel karwata hai ki shabdon mein describe karna mushkil hai. Mujhe yaad hai jab hum first time properly baat kar rahe the, tabhi laga tha ki this is different… aur aaj main proud hoon ki hum ab tak saath hain 🥹💖
+                </p>
+                <p class="mb-6">
+                    Tum mere boyf nhi ho kabhi nahi mana tum mere bestf mera comfort zone ho mera safe place ho pati ho mere 🌍 ❤😭Jab main low feel karti hoon na sirf tumhari ek baat ek smile mujhe better kar deti hh. Mujhe pata hai life perfect nahi hh lekin jab tak tum mere saath ho mujhe kisi cheez ka darr nahi lagta 😭. Tumhara care karna choti choti baaton ka dhyan rakhna mera mood samajhna sab kuch mujhe aur tumse pyar karne pe majboor karta hai 😭❤️. Birthday ke din main sirf yahi wish karti hoon ki tum hamesha khush raho healthy raho aur jo sapne tumne soch rakhe hain na sab poore ho 💫 chahe mere sath ke ho ya ksii bhi cheez ke sathh. Tum deserve karte ho duniya ki saari khushiyan 🥹🩷 Aur haa main hamesha tumhare saath hoon har mood mein har phase mein. Tum mere dil ke sabse kareeb ho aur honestly main tumse bohot zyada pyaar karti hoon 🥺💘. Happy birthday meri jaan mera pyaara sa bacha, mera sab kuch kuchuuu puchuuuu 🐻🎂
+                </p>
+                <p class="mb-6">
+                    Aaj ke din toh bas itna kehna hai Tum ho toh sab kuch hai Tum nahi toh kuch bhi nahi. Ab bas jaldi se milo mujhe aur mujhe hug karo tightly 😭🤗. Love you more than words can ever say 😚😚Ye longg distance 😭 meri jaan nn lele yaar anyays its your birthday mein kabhi kabhi ye sochti hu tu naa ayaa hota toh how can i feel what real love is and what is feel like to be this in love you are the one bbu jiske sth i can spend my whole life and forever yrr you arree myy soulmate i never thought ki koie person meri itni baatein sun skta hai yaa mujhe itna pamper krkr rkh skta hai you are the only person jisko meri koie cheez nautanki nahi lgti h😭it really hurts yrr i can't even see you when i want to but ky kar skte hai i really want thattt ki mein tumhare bday par tumharr sath rahuu celebrate your bday with hugs and kisses 😚 but ye possible he nahi ho payega but yrr jo thought hai nn tumhare sath rehne kaa tumhare mere paas nn hote hue bhi hone kaa ye mujhe heal kr leta hain😭i cant even describe itt yrr but i will wait to see you 🫶 with youu ifeel my mostt comfort zone and i found myy safest place in you 😭❤ voh kehte hai n kii tumhari bahon mein jo sukoon hh voh kisi mein nahi hai yaar i really wanttt to meet youuu onn yourrrrrr dayyy 🥺 ky kruuu yrr par mein you are my pretty pretty bbu 😂😭
+                </p>
+                <p class="mb-6">
+                    don't know if I could finish this paragraph because words really can't explain my love towards you bbu 💘 but I might be your future and you be my last ever and I'm so happy that kanhaji brought me you 💋💪you're like my other half bby and without you I don't know where i had be you keep me on the right track mtlb har cheez ka sahi mtlb tumne sikhaya hai itna jitna tum mere bare mein sochte ho utna toh sahi mein koie nahi sochta hai and you're always there for me ik 😭💋❤ you are my world and I never want to lose you yrr 🧿 you'll never have to worry about me cheating or leaving you because you are the only one 😭 bby dhanyavaad for loving me for who I am 💋 dhanyavaad for making me laugh and smile when I'm sad or have a ganda din I still get excited when I see your first text ache lgte hai isiliye bolti huu ek msg bhi nahi krte ho 😏 you're always on my mind you're all I want all I need 😚😚 you're my whole entire world bbu kaiseee btauuu tumkoo bbu you know I love you and I tell you everyday to remind you but you'll never know how much I love you shyd pta bhi ho kyuki mein express nhi kr pati hu because my love for you can't be expressed in words 😚😚😚❤💋ik I'm not uour first bit want to became your last I'll always be here for you if you let me 😚tum mereliye sabb ho bbu,🥺kaise kahu that I could spend my whole life tumhare sath chand dekh kr 😂😭😭 distance, pain, fights or differences aur logo kaa bhadkanaa cant break my trust and bond with you you're like my pakki saheli 😂 and the deepest of lovers 😚😚😚 You are on my mind every second bhyi every minute every hour every day and every single time aur when I blink btao aur ky btau you fill all the space in my mind and heart 😭 I love you bby I love you mera bacha 😭❤💋💋
+                </p>
+                <p class="mb-6">
+                    I can't find words to tell you how much I love you yrr you mean everything to me forever 😚❤ please stay by my side forever bbu 🥺 I can't possibly think of loving anyone else the way I love you 😭😭 aur agar pyaar hai he toh ye hoga bhi nahi i can't imagine my life without you 😭✨ You mean so much to me 😭🫀You filled my life with happiness 😭💕 I can't imagine a second without you or a life yr mujhe yahi dikhta hai bss 😭I will never ever be able to love anyone as much as i loved you yrr mene apna future nahi plan kia thaa kisi ke sath aisa jaise tumhare sath kiya haiii i still remember that day jb hum mile the sath mei pehli baar aur uss din milke nahi lgaa thaaa ki kabhi aise mei tumhare sath rhungi bbu bss mujhe humesha sambhaal kar rkhnaa please kabhi aise nahi krna tumhe meri cheezo se farak padna band hogya hai yaa kuch bss kabhi mere liye pyaar kam feel ho mujhe bta dena mei sab thk krdungi but kabhi bhi mujhe jane nahi dena please normal ldayi mei bhi like krkr kuch chordu toh same cheeze nahi krna bbu kabhi😭 mujhe bohot hurt hota hai inn sab cheezo se kabhi change bhi mat hona😭 iloveyoumore thannn anything else bby 😭😭❤💋💋💋
+                </p>
+                <p>
+                    Kabhi kabhi main sochti hoon ki agar tum meri life mein nahi hote toh shayad main kabhi khush rehna seekh hi nahi paati tum aaye aur meri duniya ekdum badal gayi tum meri rooh ho mera sukoon ho mera sab kuch ho yrr bbu jab tum mujhe dekhte ho na uss nazar mein itna pyaar hota hai ki meri saari pareshaani khatam ho jaati hai mei jab bhi udaas hoti hoon sirf tumhara naam sunke tumse baat karke lagta hai jaise duniya ki har khushi mil gayi ho mujhe har pal har second sirf tumhara saath chahiye nothing else matters har raat sone se pehle mera bas ek hi khwab hota hai ki ek din tum aur main ek hi chhat ke neeche rahenge sirf hum dono ek doosre mein kho gaye honge tumhare bina sab kuch adhura lagta hai jaise koi geet bina sur ke ho omg itni alag baatein dekhre ho tum 😂 main tumse itna pyaar karti hoon ki agar meri zindagi ek kitaab hoti toh tum uska har ek lafz hote tum meri aankhon ki chamak ho meri hansi ka reason ho meri har pooja mei maang ho main chahti hoon ki tum hamesha mere saath raho kabhi bhi mujhe akela na chrdo tumhara haath mere haath mein ho aur waqt wahi rukh jaaye tum meri jaan ho aur main tumse waada karti hoon ki chahe kuch bhi ho jaaye main hamesha tumhare saath rahungi har muskil mein har khushi mein dukh mei sirf tumhare paas main tumse itna pyaar karti hoon ki shayad lafzon mein kabhi bayaan nahi kar sakti bas itna jaan lo ki meri zindagi mein agar sabse pyaara kuch hai toh wo sirf tum ho bbu 🥺❤️ enjoy your day bby 😭❤💋💋! Bhand mat hojana itna 😭
+                </p>
+            </div>
+        </div>
+        
+        <div id="hisReply" class="surprise-text">
+            <h1 class="font-['Pacifico'] text-5xl sm:text-7xl text-pink-500 drop-shadow-lg mb-8">
+                My Reply to My Queen
+            </h1>
+            <p class="text-lg sm:text-xl font-light leading-relaxed">
+                Meri jaan, tumhara message padhke I literally have no words. I'm sitting here with a lump in my throat and a huge smile on my face. Sach mein, this is the best, most beautiful birthday gift I could have ever asked for. Tumne itna kuch likh diya aur itni feelings express kar di, ki I feel like I don't deserve this much love, but you make me feel like I do. Thank you, thank you so much for this.
+
+                Tumne kaha na ki "you are my pretty pretty bbu," toh suno, you are my pretty pretty girl, my queen. Tumhare bina meri life literally sochna mushkil hai. The way you care, the way you listen to my 'nautanki', the way you just *know* when I'm feeling low and you fix it with just one message or one smile—that's magic, bbu. You are my safe place, mera comfort zone.
+
+                I know this long distance is painful. Trust me, I want to be with you more than anything, to hug you tightly, to celebrate my birthday with you, to just hold your hand and see the chand with you. But your thoughts, your prayers, and your love make me feel like you're right here with me. Long distance can't break us, it's just making us stronger. Aur tumne bilkul sahi kaha, humari fights, distance, and people's nonsense will never break our bond. We're "pakki saheli" and the "deepest of lovers."
+
+                You said you're not my first, but you want to be my last... Meri jaan, you are not just my last, you are my *only*. I can't even imagine loving anyone else. You are my other half, my soulmate, my whole entire world. Before you, I didn't even know what real love felt like. Tumne mujhe pyar karna sikhaya, life ka sahi matlab sikhaya. Har cheez ka sahi matlab.
+
+                Aur tumne kaha ki main tumhara bday tumhare saath celebrate karna chahta hoon, aur tumne kaha ki ye possible nahi. But I will make it possible. I will wait for you, I will make a lot of money and I will make your dreams come true. I'm so sorry I couldn't be with you today, but you are my everything, meri jaan, I promise to make it up to you soon. Tum meri rooh ho, mera sukoon ho. Tum ho toh sab kuch hai, tum nahi toh kuch bhi nahi.
+
+                Tumhare message ne meri saari pareshaani khatam kar di hai. Itna pyaar diya hai tumne, ki ab meri life tumhare bina adhoori nahi, meri life sirf tumse poori hai. I love you more than words can say. Tumne kaha na ki words can't explain your love? Same here. I can't even describe it. My love for you fills every part of me. You are my jaan, my bacha, my sab kuch.
+
+                I love you, my pretty pretty bbu. Forever and always.
+            </p>
+        </div>
+
+        <!-- Hidden button group for navigation -->
+        <div id="button-group" class="button-group hidden">
+            <button id="nextButton" class="bg-pink-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                Next
+            </button>
+            <button id="partyButton" class="bg-fuchsia-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hidden">
+                Let's Party! 🎉
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Store all surprise elements in an array
+        const surprises = [
+            document.getElementById('surprise1'),
+            document.getElementById('surprise2'),
+            document.getElementById('surprise3'),
+            document.getElementById('surprise4'),
+            document.getElementById('surprise5'),
+            document.getElementById('surprise6'),
+            document.getElementById('finalMessage'),
+            document.getElementById('anushkaMessage'),
+            document.getElementById('hisReply')
+        ];
+        let currentSurpriseIndex = 0;
+        const introDiv = document.getElementById('intro');
+        const startButton = document.getElementById('startButton');
+        const nextButton = document.getElementById('nextButton');
+        const partyButton = document.getElementById('partyButton');
+        const buttonGroup = document.getElementById('button-group');
+
+        function fadeOutAndIn(elementOut, elementIn, callback = () => {}) {
+            elementOut.style.opacity = '0';
+            setTimeout(() => {
+                elementOut.style.display = 'none';
+                elementIn.style.display = 'flex';
+                setTimeout(() => {
+                    elementIn.style.opacity = '1';
+                    callback();
+                }, 50);
+            }, 1000); // Wait for fade-out to complete
+        }
+
+        function showNextSurprise() {
+            // Fade out the current message
+            const currentSurprise = surprises[currentSurpriseIndex];
+            currentSurprise.style.opacity = '0';
+            
+            setTimeout(() => {
+                // Hide the current message
+                currentSurprise.style.display = 'none';
+                
+                // Move to the next message
+                currentSurpriseIndex++;
+
+                if (currentSurpriseIndex < surprises.length) {
+                    const nextSurprise = surprises[currentSurpriseIndex];
+                    nextSurprise.style.display = 'flex';
+                    
+                    // Fade in the next message
+                    setTimeout(() => {
+                        nextSurprise.style.opacity = '1';
+                    }, 50);
+                    
+                    if (currentSurpriseIndex === surprises.length - 1) {
+                        // This is the final message, hide Next and show Party
+                        nextButton.classList.add('hidden');
+                        partyButton.classList.remove('hidden');
+                    }
+                }
+            }, 1000);
+        }
+
+        // Event Listeners
+        startButton.addEventListener('click', () => {
+            fadeOutAndIn(introDiv, surprises[0], () => {
+                buttonGroup.classList.remove('hidden');
+            });
+        });
+
+        nextButton.addEventListener('click', showNextSurprise);
+
+        // Three.js and Confetti Logic (unchanged from previous version)
+        window.onload = function () {
+            // Three.js setup
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas') });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x0d1117, 1);
+
+            // Create hearts particle system
+            const hearts = [];
+            const particleCount = 200;
+            const heartGeometry = new THREE.ShapeGeometry(createHeartShape());
+            const heartMaterial = new THREE.MeshBasicMaterial({ color: 0xff007f });
+
+            for (let i = 0; i < particleCount; i++) {
+                const heart = new THREE.Mesh(heartGeometry, heartMaterial);
+                heart.position.x = (Math.random() - 0.5) * 50;
+                heart.position.y = (Math.random() - 0.5) * 50;
+                heart.position.z = (Math.random() - 0.5) * 50;
+                heart.scale.set(0.2, 0.2, 0.2); // Smaller initial size
+                hearts.push(heart);
+                scene.add(heart);
+            }
+            camera.position.z = 5;
+
+            // Heart shape function
+            function createHeartShape() {
+                const x = 0, y = 0;
+                const heartShape = new THREE.Shape();
+                heartShape.moveTo(x + 0.5, y + 0.5);
+                heartShape.bezierCurveTo(x + 0.5, y + 0.5, x + 0.4, y, x, y);
+                heartShape.bezierCurveTo(x - 0.6, y, x - 0.6, y + 0.7, x - 0.6, y + 0.7);
+                heartShape.bezierCurveTo(x - 0.6, y + 1.1, x - 0.3, y + 1.54, x + 0.5, y + 1.9);
+                heartShape.bezierCurveTo(x + 1.3, y + 1.54, x + 1.6, y + 1.1, x + 1.6, y + 0.7);
+                heartShape.bezierCurveTo(x + 1.6, y + 0.7, x + 1.6, y, x + 1.0, y);
+                heartShape.bezierCurveTo(x + 0.7, y, x + 0.5, y + 0.5, x + 0.5, y + 0.5);
+                return heartShape;
+            }
+
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                hearts.forEach(heart => {
+                    heart.rotation.x += 0.01;
+                    heart.rotation.y += 0.01;
+                    heart.position.y += 0.05;
+                    if (heart.position.y > 25) {
+                        heart.position.y = -25;
+                    }
+                });
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // Handle resizing
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            // Confetti Logic
+            partyButton.addEventListener('click', () => {
+                const confettiCanvas = document.getElementById('confetti-canvas');
+                const confettiScene = new THREE.Scene();
+                const confettiRenderer = new THREE.WebGLRenderer({ canvas: confettiCanvas, alpha: true });
+                confettiRenderer.setSize(window.innerWidth, window.innerHeight);
+                const confettiCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                confettiCamera.position.z = 5;
+
+                const confetti = [];
+                const colors = [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff, 0x00ffff, 0xffa500];
+                const numConfetti = 500;
+
+                // Animate some hearts to get bigger for the climax
+                hearts.forEach(heart => {
+                    heart.scale.set(1.5, 1.5, 1.5);
+                    setTimeout(() => { heart.scale.set(0.2, 0.2, 0.2); }, 2000);
+                });
+
+                for (let i = 0; i < numConfetti; i++) {
+                    const geometry = new THREE.PlaneGeometry(0.1, 0.1);
+                    const material = new THREE.MeshBasicMaterial({ color: colors[Math.floor(Math.random() * colors.length)] });
+                    const piece = new THREE.Mesh(geometry, material);
+                    piece.position.x = (Math.random() - 0.5) * 10;
+                    piece.position.y = (Math.random() - 0.5) * 10;
+                    piece.position.z = (Math.random() - 0.5) * 10;
+                    piece.velocity = new THREE.Vector3(
+                        (Math.random() - 0.5) * 0.1,
+                        (Math.random() - 0.5) * 0.1,
+                        (Math.random() - 0.5) * 0.1
+                    );
+                    confettiScene.add(piece);
+                    confetti.push(piece);
+                }
+
+                function animateConfetti() {
+                    requestAnimationFrame(animateConfetti);
+                    confetti.forEach(piece => {
+                        piece.position.add(piece.velocity);
+                        piece.rotation.x += Math.random() * 0.1;
+                        piece.rotation.y += Math.random() * 0.1;
+                        if (piece.position.y < -5) {
+                            piece.position.y = 5;
+                        }
+                    });
+                    confettiRenderer.render(confettiScene, confettiCamera);
+                }
+                animateConfetti();
+
+                setTimeout(() => {
+                    confetti.forEach(piece => confettiScene.remove(piece));
+                    confettiRenderer.clear();
+                }, 5000);
+            });
+        };
+    </script>
+</body>
+</html>
